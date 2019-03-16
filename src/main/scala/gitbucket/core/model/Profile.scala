@@ -71,6 +71,7 @@ trait CoreProfile
     with ReleaseAssetComponent
     with AccountExtraMailAddressComponent
     with OAuthApplicationComponent
+    with OAuthAccessTokenComponent
     with AccountPreferenceComponent
 
 object Profile extends CoreProfile
