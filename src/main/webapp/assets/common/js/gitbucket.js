@@ -26,8 +26,11 @@ $(function(){
     $(this).find('span.octicon').css('visibility', 'hidden');
   });
 
-  // syntax highlighting by google-code-prettify
-  prettyPrint();
+  // syntax highlighting by highlight.js
+  document.querySelectorAll('pre.prettyprint').forEach(block => {
+    hljs.highlightBlock(block);
+    hljs.lineNumbersBlock(block);
+  });
 
   // Suppress transition animation on load
   $("body").removeClass("page-load");

@@ -647,9 +647,9 @@ trait RepositoryViewerControllerBase extends ControllerBase {
       case Some(account) =>
         getAccountPreference(account.userName) match {
           case Some(x) => x.highlighterTheme
-          case _       => "github-v2"
+          case _       => "github"
         }
-      case _ => "github-v2"
+      case _ => "github"
     }
   }
 

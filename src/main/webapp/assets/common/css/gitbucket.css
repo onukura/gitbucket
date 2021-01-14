@@ -1852,6 +1852,21 @@ div.container.blame-container{
 .heat9 { background-color:#a2503a }
 .heat10{ background-color:#793738 }
 
+/* highlight.js */
+td.hljs-ln-line.hljs-ln-code {
+  padding-left: 10px;
+}
+
+/* highlightjs-line-numbers.js */
+td.hljs-ln-line.hljs-ln-numbers {
+  text-align: right;
+  color: #ccc;
+  border-right: 1px solid #CCC;
+  vertical-align: top;
+  padding-right: 10px;
+  padding-left: 15px;
+}
+
 /****************************************************************************/
 /* Mobile */
 /****************************************************************************/

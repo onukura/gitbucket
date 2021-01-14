@@ -11,6 +11,14 @@
                 <label for="highlighterTheme" class="strong">Theme</label>
                 <select id="highlighterTheme" name="highlighterTheme" class="form-control">
                 @Seq(
+                  ("a11y-dark", "A11y Dark"),
+                  ("a11y-light", "A11y Light"),
+                  ("agate", "Agate"),
+                  ("an-old-hope", "An Old Hope"),
+                  ("androidstudio", "Androidstudio"),
+                  ("arduino-light", "Arduino Light"),
+                  ("arta", "Arta"),
+                  ("ascetic", "Ascetic"),
                   ("atelier-cave-dark", "Atelier Cave Dark"),
                   ("atelier-cave-light", "Atelier Cave Light"),
                   ("atelier-dune-dark", "Atelier Dune Dark"),
@@ -31,16 +39,75 @@
                   ("atelier-seaside-light", "Atelier Seaside Light"),
                   ("atelier-sulphurpool-dark", "Atelier Sulphurpool Dark"),
                   ("atelier-sulphurpool-light", "Atelier Sulphurpool Light"),
-                  ("github", "GitHub"),
-                  ("github-v2", "GitHub v2"),
-                  ("hemisu-dark", "Hemisu Dark"),
-                  ("hemisu-light", "Hemisu Light"),
-                  ("tomorrow", "Tomorrow"),
-                  ("tomorrow-night", "Tomorrow Night"),
+                  ("atom-one-dark-reasonable", "Atom One Dark Reasonable"),
+                  ("atom-one-dark", "Atom One Dark"),
+                  ("atom-one-light", "Atom One Light"),
+                  ("brown-paper", "Brown Paper"),
+                  ("codepen-embed", "Codepen Embed"),
+                  ("color-brewer", "Color Brewer"),
+                  ("darcula", "Darcula"),
+                  ("dark", "Dark"),
+                  ("default", "Default"),
+                  ("docco", "Docco"),
+                  ("dracula", "Dracula"),
+                  ("far", "Far"),
+                  ("foundation", "Foundation"),
+                  ("github-gist", "Github Gist"),
+                  ("github", "Github"),
+                  ("gml", "Gml"),
+                  ("googlecode", "Googlecode"),
+                  ("gradient-dark", "Gradient Dark"),
+                  ("gradient-light", "Gradient Light"),
+                  ("grayscale", "Grayscale"),
+                  ("gruvbox-dark", "Gruvbox Dark"),
+                  ("gruvbox-light", "Gruvbox Light"),
+                  ("hopscotch", "Hopscotch"),
+                  ("hybrid", "Hybrid"),
+                  ("idea", "Idea"),
+                  ("ir-black", "Ir Black"),
+                  ("isbl-editor-dark", "Isbl Editor Dark"),
+                  ("isbl-editor-light", "Isbl Editor Light"),
+                  ("kimbie.dark", "Kimbie.dark"),
+                  ("kimbie.light", "Kimbie.light"),
+                  ("lightfair", "Lightfair"),
+                  ("lioshi", "Lioshi"),
+                  ("magula", "Magula"),
+                  ("mono-blue", "Mono Blue"),
+                  ("monokai-sublime", "Monokai Sublime"),
+                  ("monokai", "Monokai"),
+                  ("night-owl", "Night Owl"),
+                  ("nnfx-dark", "Nnfx Dark"),
+                  ("nnfx", "Nnfx"),
+                  ("nord", "Nord"),
+                  ("obsidian", "Obsidian"),
+                  ("ocean", "Ocean"),
+                  ("paraiso-dark", "Paraiso Dark"),
+                  ("paraiso-light", "Paraiso Light"),
+                  ("pojoaque", "Pojoaque"),
+                  ("purebasic", "Purebasic"),
+                  ("qtcreator_dark", "Qtcreator_dark"),
+                  ("qtcreator_light", "Qtcreator_light"),
+                  ("railscasts", "Railscasts"),
+                  ("rainbow", "Rainbow"),
+                  ("routeros", "Routeros"),
+                  ("school-book", "School Book"),
+                  ("shades-of-purple", "Shades Of Purple"),
+                  ("solarized-dark", "Solarized Dark"),
+                  ("solarized-light", "Solarized Light"),
+                  ("srcery", "Srcery"),
+                  ("stackoverflow-dark", "Stackoverflow Dark"),
+                  ("stackoverflow-light", "Stackoverflow Light"),
+                  ("sunburst", "Sunburst"),
                   ("tomorrow-night-blue", "Tomorrow Night Blue"),
                   ("tomorrow-night-bright", "Tomorrow Night Bright"),
                   ("tomorrow-night-eighties", "Tomorrow Night Eighties"),
-                  ("vibrant-ink", "Vibrant Ink")
+                  ("tomorrow-night", "Tomorrow Night"),
+                  ("tomorrow", "Tomorrow"),
+                  ("vs", "Vs"),
+                  ("vs2015", "Vs2015"),
+                  ("xcode", "Xcode"),
+                  ("xt256", "Xt256"),
+                  ("zenburn", "Zenburn")
                 ).map{ theme =>
                   <option value="@theme._1"@if(theme._1 == currentTheme){ selected=""}>@theme._2</option>
                 }
@@ -50,15 +117,17 @@
             </div>
             <div class="col-md-8">
               <div style="margin: 5px">
-                <pre class="prettyprint linenums">@{
-                  """#include <iostream>
+                <pre id="code-for-highlighter">
+                    @{"""
+                    |#include <iostream>
                     |
                     |using namespace std;
                     |
                     |int main(){
                     |  cout << 'Hello world.' << endl;
                     |  return 0;
-                    |}""".stripMargin}
+                    |}
+                    |""".stripMargin}
                 </pre>
               </div>
             </div>
@@ -70,12 +139,16 @@
             $(function(){
               $('#highlighterTheme').change(function(evt) {
                 var that = $(evt.target);
-                var themeCss = $('link[rel="stylesheet"][href*="color-themes-for-google-code-prettify"]');
-                var oldVal = new RegExp('color-themes-for-google-code-prettify/(.*?).min.css').exec(themeCss.attr('href'))[1];
+                var themeCss = $('link[rel="stylesheet"][href*="highlight.js/styles"]');
+                var oldVal = new RegExp('highlight.js/styles/(.*?).css').exec(themeCss.attr('href'))[1];
                 themeCss.attr('href', themeCss.attr('href').replace(oldVal, that.val()));
                 $(document.body).removeClass(oldVal).addClass(that.val());
               });
-              prettyPrint();
+              document.querySelectorAll('#code-for-highlighter').forEach(block => {
+                // then highlight each
+                hljs.highlightBlock(block);
+                hljs.lineNumbersBlock(block);
+              });
             });
     </script>
   }
