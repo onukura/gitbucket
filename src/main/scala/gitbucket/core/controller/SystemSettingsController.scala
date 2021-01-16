@@ -559,12 +559,6 @@ trait SystemSettingsControllerBase extends AccountManagementControllerBase {
     redirect("/admin/oauth")
   })
 
-  private def members: Constraint = new Constraint() {
-    override def validate(name: String, value: String, messages: Messages): Option[String] = {
-      if (value.split(",").exists {
-            _.split(":") match { case Array(userName, isManager) => isManager.toBoolean }
-          }) None
-      else Some("Must select one manager at least.")
   private def multiLineText(constraints: Constraint*): SingleValueType[Seq[String]] =
     new SingleValueType[Seq[String]](constraints: _*) {
       def convert(value: String, messages: Messages): Seq[String] = {
